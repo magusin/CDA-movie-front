@@ -29,7 +29,12 @@ const Movie = () => {
   const [modal, setModal] = useState(false)
   const [modalEdit, setModalEdit] = useState(false)
   const toggle = () => setModal(!modal)
-  const toggleEdit = () => setModalEdit(!modalEdit)
+  const toggleEdit = (data) => {
+    setTitle(data.title)
+    setTime(data.time)
+    setSynopsis(data.synopsis)
+    setModalEdit(!modalEdit)
+  }
   const handleSubmit = (event) => {
     event.preventDefault() // 👈️ prevent page refresh
 
@@ -108,10 +113,6 @@ const Movie = () => {
       )
   }, [])
 
-    async function onClickEdit(data) {
-      console.log(data)
-    }
-
   return (
     <div className="movie">
       <Button onClick={toggle}>Ajouter un Film</Button>
@@ -128,7 +129,7 @@ const Movie = () => {
             <CardBody>
               <CardTitle tag="h5">{data.title} </CardTitle>
               <FontAwesomeIcon
-                onClick={toggleEdit}
+                onClick={() => toggleEdit(data)}
                 icon="fa-solid fa-bars"
               />
               <CardSubtitle className="mb-2 text-muted" tag="h6">
@@ -230,7 +231,7 @@ const Movie = () => {
           <Button color="primary" onClick={handleSubmit}>
             Enregistrer le film
           </Button>{' '}
-          <Button color="secondary" onClick={toggle}>
+          <Button color="secondary" onClick={toggleEdit}>
             Annuler
           </Button>
         </ModalFooter>
