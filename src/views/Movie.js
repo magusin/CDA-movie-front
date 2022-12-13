@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Card,
   CardBody,
@@ -14,7 +17,7 @@ import {
   Label,
   Input
 } from 'reactstrap'
-
+library.add(faBars);
 const Movie = () => {
   const [title, setTitle] = useState('')
   const [synopsis, setSynopsis] = useState('')
@@ -25,7 +28,6 @@ const Movie = () => {
   const [modal, setModal] = useState(false)
   const toggle = () => setModal(!modal)
   const handleSubmit = (event) => {
-    console.log('handleSubmit ran')
     event.preventDefault() // 👈️ prevent page refresh
 
     // 👇️ access input values here
@@ -92,9 +94,11 @@ const Movie = () => {
     fetch(`http://localhost:3000/movie`)
       .then((res) => res.json())
       .then(
-        (result) => {
+        (result) =>  {
+          
           setLoading(true)
-          setData(result)
+          setData(result.data)
+          
         },
         (error) => {
           setLoading(true)
@@ -116,7 +120,7 @@ const Movie = () => {
             }}
           >
             <CardBody>
-              <CardTitle tag="h5">{data.title}</CardTitle>
+              <CardTitle tag="h5">{data.title} </CardTitle><FontAwesomeIcon icon="fa-solid fa-bars" />
               <CardSubtitle className="mb-2 text-muted" tag="h6">
                 {secondsToHms(data.time)}
               </CardSubtitle>
