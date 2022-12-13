@@ -95,8 +95,12 @@ li:has(a) {
 
 }
 
+.fa-bars:hover {
+  cursor: grab;
+}
+
 .weglot-container {
-  bottom:50% !important;
+  bottom: 50% !important;
   right: 100px;
   transform: rotate(135deg);
 }

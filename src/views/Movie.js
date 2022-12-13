@@ -17,7 +17,8 @@ import {
   Label,
   Input
 } from 'reactstrap'
-library.add(faBars);
+library.add(faBars)
+
 const Movie = () => {
   const [title, setTitle] = useState('')
   const [synopsis, setSynopsis] = useState('')
@@ -26,7 +27,9 @@ const Movie = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [modal, setModal] = useState(false)
+  const [modalEdit, setModalEdit] = useState(false)
   const toggle = () => setModal(!modal)
+  const toggleEdit = () => setModalEdit(!modalEdit)
   const handleSubmit = (event) => {
     event.preventDefault() // 👈️ prevent page refresh
 
@@ -94,11 +97,9 @@ const Movie = () => {
     fetch(`http://localhost:3000/movie`)
       .then((res) => res.json())
       .then(
-        (result) =>  {
-          
+        (result) => {
           setLoading(true)
           setData(result.data)
-          
         },
         (error) => {
           setLoading(true)
@@ -107,12 +108,17 @@ const Movie = () => {
       )
   }, [])
 
+    async function onClickEdit(data) {
+      console.log(data)
+    }
+
   return (
     <div className="movie">
       <Button onClick={toggle}>Ajouter un Film</Button>
       <div className="movie-list">
         {data?.map((data) => (
           <Card
+            key={data.id}
             style={{
               width: '18rem',
               margin: '20px',
@@ -120,7 +126,11 @@ const Movie = () => {
             }}
           >
             <CardBody>
-              <CardTitle tag="h5">{data.title} </CardTitle><FontAwesomeIcon icon="fa-solid fa-bars" />
+              <CardTitle tag="h5">{data.title} </CardTitle>
+              <FontAwesomeIcon
+                onClick={toggleEdit}
+                icon="fa-solid fa-bars"
+              />
               <CardSubtitle className="mb-2 text-muted" tag="h6">
                 {secondsToHms(data.time)}
               </CardSubtitle>
@@ -129,8 +139,57 @@ const Movie = () => {
           </Card>
         ))}
       </div>
+      {/* modal add movie */}
       <Modal isOpen={modal} toggle={toggle} centered={true}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+        <ModalHeader toggle={toggle}>Ajouter votre film</ModalHeader>
+        <ModalBody>
+          <FormGroup>
+            <Label for="title">Titre</Label>
+            <Input
+              id="title"
+              name="title"
+              placeholder="le titre de votre film"
+              type="text"
+              onChange={(event) => setTitle(event.target.value)}
+              value={title}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="time">Temps</Label>
+            <Input
+              id="time"
+              name="time"
+              placeholder="le temps du film en seconde"
+              type="text"
+              onChange={(event) => setTime(event.target.value)}
+              value={time}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="synopsis">Synopsis</Label>
+            <Input
+              id="synopsis"
+              name="synopsis"
+              placeholder="le synopsis du film"
+              type="textarea"
+              style={{ height: '200px' }}
+              onChange={(event) => setSynopsis(event.target.value)}
+              value={synopsis}
+            />
+          </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={handleSubmit}>
+            Enregistrer le film
+          </Button>{' '}
+          <Button color="secondary" onClick={toggle}>
+            Annuler
+          </Button>
+        </ModalFooter>
+      </Modal>
+      {/* modal edit movie */}
+      <Modal isOpen={modalEdit} toggle={toggleEdit} centered={true}>
+        <ModalHeader toggle={toggleEdit}>Editer le film</ModalHeader>
         <ModalBody>
           <FormGroup>
             <Label for="title">Titre</Label>
