@@ -13,6 +13,13 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
   />
+  <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+<script>
+  function addDarkmodeWidget() {
+    new Darkmode().showWidget();
+  }
+  window.addEventListener('load', addDarkmodeWidget);
+</script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a

@@ -8,8 +8,9 @@ import Movie from './views/Movie'
 function App() {
   return (
     <Router>
+       
       <div className="App">
-        <Header />
+      <Header />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/movie" element={<Movie />} />

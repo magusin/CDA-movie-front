@@ -111,7 +111,8 @@ const Movie = () => {
           <Card
             style={{
               width: '18rem',
-              margin: '20px'
+              margin: '20px',
+              minWidth: '250px'
             }}
           >
             <CardBody>

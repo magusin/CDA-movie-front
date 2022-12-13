@@ -1,31 +1,15 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  background-color: #d9e0ee;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 @keyframes App-logo-spin {
@@ -40,9 +24,45 @@
 a {
   color: black !important;
   text-decoration: none !important;
+  
+}
+
+li:has(a) {
+  height: 100%;
+  padding: 0px !important;
+}
+.darkmode--activated p, .darkmode--activated li {
+  z-index: 100;
+
+}
+
+.navbar {
+  position: relative;
+  top: 0;
+  padding: 0 !important;
+  background: #fff;
+  box-shadow: inset 0px -1px 0px #f3f3f4;
+  height: 60px;
+  margin: 0 2em;
+  margin-bottom: 20px;
+}
+
+.navbar-brand {
+  width: 150px;
+}
+
+.container-fluid {
+  height: 60px;
+}
+
+.nav-item {
+  width: 50px;
 }
 
 .movie-list {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
 }
